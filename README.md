@@ -51,7 +51,7 @@ The naming conventions for each pair of image files is as follows:
 If the browser runs on a high-resolution display, and if the referenced image
 is available in high-resolution, the corresponding ```<img ng-src="...">``` tag
 is interpreted, such that the image in high-resolution is referenced.
-This module also rewrites ```<img ng-src="...">``` tags, which contain a static
+This **ngRetina** also rewrites these image tags, if they contain a static
 image url, ie. one without any mark-up directives.
 
 Note that when using this module, adding the element attributes ```width="..."```
