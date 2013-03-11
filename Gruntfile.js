@@ -58,7 +58,7 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporters: ['dots'],
-          browsers: ['Firefox', 'Chrome'],
+          browsers: ['Firefox'],
           singleRun: true
         }
       },
