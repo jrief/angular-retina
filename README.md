@@ -5,6 +5,8 @@ Replaces the AngularJS directive ```ng-src``` by a version which supports Retina
 If the browser runs on a Retina display and the referenced image is available in double
 resolution, then load the high resolution version of that image from the server.
 
+[![Build Status](https://travis-ci.org/jrief/angular-retina.png)](https://travis-ci.org/jrief/angular-retina)
+
 ## Quick start
 ### Download
 
