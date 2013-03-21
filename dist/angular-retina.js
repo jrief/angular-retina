@@ -1,4 +1,4 @@
-/*! angular-retina - v0.1.0 - 2013-03-08
+/*! angular-retina - v0.1.1 - 2013-03-21
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2013 Jacob Rief; Licensed MIT */
 (function(angular, undefined) {
@@ -14,15 +14,14 @@ angular.module('ngRetina', []).config(function($provide) {
 })
 .directive('ngSrc', function($window, $http, $cacheFactory) {
   var cache = $cacheFactory('retinaImageURLs');
-  var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), " +
-    "(-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)";
   var msie = parseInt(((/msie (\d+)/.exec($window.navigator.userAgent.toLowerCase()) || [])[1]), 10);
-
-  function isRetina() {
+  var isRetina = (function() {
+    var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), " +
+      "(-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)";
     if ($window.devicePixelRatio > 1)
       return true;
     return ($window.matchMedia && $window.matchMedia(mediaQuery).matches);
-  }
+  })();
 
   function getHighResolutionURL(url) {
     var parts = url.split('.');
@@ -59,7 +58,7 @@ angular.module('ngRetina', []).config(function($provide) {
     attrs.$observe('ngSrc', function(value) {
       if (!value)
         return;
-      if (isRetina()) {
+      if (isRetina) {
         set2xVariant(value);
       } else {
         setImgSrc(value);

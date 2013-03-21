@@ -1,7 +1,7 @@
 {
   "name": "angular-retina",
   "description": "Replace AngularJS directive 'ng-src' by a version which supports Retina displays",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/jrief/angular-retina",
   "author": {
     "name": "Jacob Rief",
