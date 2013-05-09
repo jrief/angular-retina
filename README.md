@@ -62,7 +62,7 @@ This module can also be used to reference static image urls, to load the
 high resolution version on Retina displays.
 
 Note that when using this module, adding the element attributes ```width="..."```
-and ```height="..."``` becomes mandatory, as the displayed image
+and/or ```height="..."``` becomes mandatory, as the displayed image
 otherwise gets scaled to its double size.
 
 ## Release History
