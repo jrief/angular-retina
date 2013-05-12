@@ -1,4 +1,4 @@
-/*! angular-retina - v0.1.1 - 2013-03-21
+/*! angular-retina - v0.1.2 - 2013-05-12
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2013 Jacob Rief; Licensed MIT */
 (function(angular, undefined) {

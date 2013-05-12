@@ -1,7 +1,7 @@
 {
   "name": "angular-retina",
   "description": "Replace AngularJS directive 'ng-src' by a version which supports Retina displays",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/jrief/angular-retina",
   "author": {
     "name": "Jacob Rief",
@@ -24,12 +24,11 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
-    "test": "testacular start test/testacular.conf.js --single-run --browsers PhantomJS",
-    "test-server": "testacular start test/testacular.conf.js --browsers PhantomJS"
+    "test": "karma start test/karma.conf.js --single-run --browsers PhantomJS"
   },
   "dependencies": {},
   "devDependencies": {
-    "testacular": ">= 0.6.0",
+    "karma": ">= 0.8.5",
     "grunt": ">= 0.4.0",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-jshint": "latest",
