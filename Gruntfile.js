@@ -57,12 +57,18 @@ module.exports = function(grunt) {
     karma: {
       test: {
         options: {
-          reporters: ['dots'],
-          browsers: ['Firefox'],
+          browsers: ['Safari', 'Chrome', 'ChromeCanary', 'Firefox', 'Opera'],
           singleRun: true
         }
       },
+      'travis-ci': {
+          options: {
+            browsers: ['Firefox'],
+            singleRun: true
+          }
+      },
       options: {
+        reporters: ['dots'],
         configFile: 'test/karma.conf.js'
       }
     }
@@ -78,6 +84,7 @@ module.exports = function(grunt) {
 
   // Test tasks.
   grunt.registerTask('test', ['jshint', 'karma:test']);
+  grunt.registerTask('travis-ci', ['jshint', 'karma:travis-ci']);
 
   // Build task.
   grunt.registerTask('build', ['test', 'concat', 'uglify']);

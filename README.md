@@ -18,9 +18,11 @@ resolution, then load the high resolution version of that image from the server.
 
 >
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.3/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
 <script src="/path/to/your/javascript-files/angular-retina.min.js"></script>
 ```
+
+Please note, that *angular-retina* requires ```angularjs-1.1.3``` or later.
 
 + and in your main JavaScript file:
 
