@@ -10,6 +10,8 @@ resolution, then load the high resolution version of that image from the server.
 ## Quick start
 ### Download
 
+```npm install angular-retina```
+
 [min]: https://raw.github.com/jrief/angular-retina/master/dist/angular-retina.min.js
 [max]: https://raw.github.com/jrief/angular-retina/master/dist/angular-retina.js
 
