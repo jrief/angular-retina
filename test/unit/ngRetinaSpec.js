@@ -123,7 +123,7 @@ describe('test module angular-retina', function() {
       module('ngRetina');
     });
 
-    beforeEach(inject(function($injector, $rootScope) {
+    beforeEach(inject(function($rootScope) {
       scope = $rootScope.$new();
     }));
 
