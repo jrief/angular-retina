@@ -1,18 +1,18 @@
-/*! angular-retina - v0.1.2 - 2013-05-12
+/*! angular-retina - v0.1.2 - 2013-05-28
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2013 Jacob Rief; Licensed MIT */
 (function(angular, undefined) {
 'use strict';
 
-angular.module('ngRetina', []).config(function($provide) {
-  $provide.decorator('ngSrcDirective', function($delegate) {
+angular.module('ngRetina', []).config(['$provide',function($provide) {
+  $provide.decorator('ngSrcDirective',['$delegate', function($delegate) {
     $delegate[0].compile = function(element, attrs) {
       // intentionally empty to override the built-in directive ng-src
     };
     return $delegate;
-  });
-})
-.directive('ngSrc', function($window, $http, $cacheFactory) {
+  }]);
+}])
+.directive('ngSrc', ['$window','$http','$cacheFactory', function($window, $http, $cacheFactory) {
   var cache = $cacheFactory('retinaImageURLs');
   var msie = parseInt(((/msie (\d+)/.exec($window.navigator.userAgent.toLowerCase()) || [])[1]), 10);
   var isRetina = (function() {
@@ -65,6 +65,6 @@ angular.module('ngRetina', []).config(function($provide) {
       }
     });
   };
-});
+}]);
 
 })(window.angular);
