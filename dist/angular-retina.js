@@ -1,4 +1,4 @@
-/*! angular-retina - v0.1.3 - 2013-05-29
+/*! angular-retina - v0.1.3 - 2013-06-18
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2013 Jacob Rief; Licensed MIT */
 (function (angular, undefined) {
@@ -6,11 +6,14 @@
   angular.module('ngRetina', []).config([
     '$provide',
     function ($provide) {
-      $provide.decorator('ngSrcDirective', function ($delegate) {
-        $delegate[0].compile = function (element, attrs) {
-        };
-        return $delegate;
-      });
+      $provide.decorator('ngSrcDirective', [
+        '$delegate',
+        function ($delegate) {
+          $delegate[0].compile = function (element, attrs) {
+          };
+          return $delegate;
+        }
+      ]);
     }
   ]).directive('ngSrc', [
     '$window',
