@@ -30,6 +30,11 @@ describe('test module angular-retina', function() {
       $httpBackend = $injector.get('$httpBackend');
     }));
 
+    afterEach(function() {
+        window.sessionStorage.removeItem("/image.png");
+        window.sessionStorage.removeItem("/picture.png");
+    });
+
     describe('for static "ng-src" tags', function() {
       it('should set src tag with a highres image', inject(function($compile) {
         var element = angular.element('<input ng-src="/image.png">');

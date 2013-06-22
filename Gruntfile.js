@@ -62,6 +62,11 @@ module.exports = function(grunt) {
 		karma: {
 			test: {
 				options: {
+					browsers: ['ChromeCanary']
+				}
+			},
+			testall: {
+				options: {
 					browsers: ['Safari', 'Chrome', 'ChromeCanary', 'Firefox', 'Opera'],
 					singleRun: true
 				}
@@ -90,6 +95,7 @@ module.exports = function(grunt) {
 
 	// Test tasks.
 	grunt.registerTask('test', ['jshint', 'karma:test']);
+	grunt.registerTask('testall', ['karma:testall']);
 	grunt.registerTask('travis-ci', ['jshint', 'karma:travis-ci']);
 
 	// Build task.
