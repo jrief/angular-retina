@@ -1,4 +1,4 @@
-/*! angular-retina - v0.1.3 - 2013-06-18
+/*! angular-retina - v0.1.3 - 2013-06-22
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2013 Jacob Rief; Licensed MIT */
 (function (angular, undefined) {
@@ -18,9 +18,7 @@
   ]).directive('ngSrc', [
     '$window',
     '$http',
-    '$cacheFactory',
-    function ($window, $http, $cacheFactory) {
-      var cache = $cacheFactory('retinaImageURLs');
+    function ($window, $http) {
       var msie = parseInt((/msie (\d+)/.exec($window.navigator.userAgent.toLowerCase()) || [])[1], 10);
       var isRetina = function () {
           var mediaQuery = '(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), ' + '(-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)';
@@ -42,15 +40,15 @@
             element.prop('src', img_url);
         }
         function set2xVariant(img_url) {
-          var img_url_2x = cache.get(img_url);
-          if (img_url_2x === undefined) {
+          var img_url_2x = $window.sessionStorage.getItem(img_url);
+          if (!img_url_2x) {
             img_url_2x = getHighResolutionURL(img_url);
             $http.head(img_url_2x).success(function (data, status) {
               setImgSrc(img_url_2x);
-              cache.put(img_url, img_url_2x);
+              $window.sessionStorage.setItem(img_url, img_url_2x);
             }).error(function (data, status, headers, config) {
               setImgSrc(img_url);
-              cache.put(img_url, img_url);
+              $window.sessionStorage.setItem(img_url, img_url);
             });
           } else {
             setImgSrc(img_url_2x);
@@ -59,7 +57,7 @@
         attrs.$observe('ngSrc', function (value) {
           if (!value)
             return;
-          if (isRetina) {
+          if (isRetina && typeof $window.sessionStorage === 'object') {
             set2xVariant(value);
           } else {
             setImgSrc(value);
