@@ -71,6 +71,8 @@ otherwise gets scaled to its double size.
 
 ## Release History
 0.1.0 - initial revision
+0.1.3 - fixed problems with minified JS code
+0.2.0 - using sessionStorage instead of $cacheFactory to boost performance
 
 ## License
 Copyright (c) 2013 Jacob Rief  
