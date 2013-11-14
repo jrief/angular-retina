@@ -28,12 +28,16 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "karma": ">= 0.8.5",
-    "grunt": ">= 0.4.0",
+    "minimatch": "~0.2.12",
+    "lodash": "~2.2.1",
+    "karma": "~0.10.2",
+    "grunt": "~0.4.1",
+    "load-grunt-tasks": "~0.1.0",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-ngmin": "0.0.2"
+    "grunt-ngmin": "0.0.2",
+    "grunt-karma": "~0.7.1"
   },
   "keywords": []
 }
