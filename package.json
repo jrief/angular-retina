@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jrief/angular-retina.git"
+    "url": "git://github.com/bernardobrezende/angular-retina.git"
   },
   "bugs": {
-    "url": "https://github.com/jrief/angular-retina/issues"
+    "url": "https://github.com/bernardobrezende/angular-retina/issues"
   },
   "licenses": [
     {
