@@ -84,11 +84,8 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-ngmin');
+	// Load devDependencies from package.json
+	require('load-grunt-tasks')(grunt);
 
 	// Default task.
 	grunt.registerTask('default', ['test']);
@@ -100,12 +97,4 @@ module.exports = function(grunt) {
 
 	// Build task.
 	grunt.registerTask('build', ['test', 'ngmin', 'concat', 'uglify']);
-
-	// Provides the "karma" task.
-	grunt.registerMultiTask('karma', 'Starts up a karma server.', function() {
-		var done = this.async();
-		require('karma').server.start(this.options(), function(code) {
-			done(code === 0);
-		});
-	});
 };
