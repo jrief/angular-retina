@@ -50,8 +50,8 @@ describe('test module angular-retina', function() {
       var element;
 
       beforeEach(inject(function($compile) {
-        element = angular.element('<input ng-src="/{{image_url}}">');
-        scope.image_url = 'image.png';
+        element = angular.element('<input ng-src="{{image_url}}">');
+        scope.image_url = '/image.png';
         $httpBackend.when('HEAD', '/image@2x.png').respond(200);
         $compile(element)(scope);
         scope.$digest();
@@ -65,7 +65,7 @@ describe('test module angular-retina', function() {
       describe('should observe scope.image_url', function() {
         beforeEach(function() {
           $httpBackend.when('HEAD', '/picture@2x.png').respond(200);
-          scope.image_url = 'picture.png';
+          scope.image_url = '/picture.png';
           scope.$digest();
           $httpBackend.flush();
         });
@@ -75,7 +75,7 @@ describe('test module angular-retina', function() {
         });
 
         it('and check if the client side cache is working', function() {
-          scope.image_url = 'image.png';
+          scope.image_url = '/image.png';
           scope.$digest();
           expect(element.attr('src')).toBe('/image@2x.png');
         });
@@ -96,8 +96,8 @@ describe('test module angular-retina', function() {
       }));
 
       it('should copy content from scope object to "src" tag', inject(function($compile) {
-        var element = angular.element('<input ng-src="/{{image_url}}">');
-        scope.image_url = 'image.png';
+        var element = angular.element('<input ng-src="{{image_url}}">');
+        scope.image_url = '/image.png';
         $compile(element)(scope);
         scope.$digest();
         $httpBackend.flush();
@@ -140,8 +140,8 @@ describe('test module angular-retina', function() {
     }));
 
     it('should copy content from scope object to "src" tag', inject(function($compile) {
-      var element = angular.element('<input ng-src="/{{image_url}}">');
-      scope.image_url = 'image.png';
+      var element = angular.element('<input ng-src="{{image_url}}">');
+      scope.image_url = '/image.png';
       $compile(element)(scope);
       scope.$digest();
       expect(element.attr('src')).toBe('/image.png');
