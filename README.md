@@ -7,50 +7,57 @@ resolution, then load the high resolution version of that image from the server.
 
 [![Build Status](https://travis-ci.org/jrief/angular-retina.png)](https://travis-ci.org/jrief/angular-retina)
 
-## Quick start
-### Download
+## Install
+
+Install with `bower`:
+
+```bower install angular-retina```
+
+or with `npm`:
 
 ```npm install angular-retina```
 
 [min]: https://raw.github.com/jrief/angular-retina/master/dist/angular-retina.min.js
 [max]: https://raw.github.com/jrief/angular-retina/master/dist/angular-retina.js
 
-### On the client
-+ Into your HTML code include the required libraries:
+## Client usage
 
->
+Into your HTML code include the required files:
+
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
-<script src="/path/to/your/javascript-files/angular-retina.min.js"></script>
+<script src="/bower_components/angular-retina/dist/angular-retina.min.js"></script>
 ```
 
 Please note, that *angular-retina* requires ```angularjs-1.1.3``` or later.
 
-+ and in your main JavaScript file:
+and in your main JavaScript file:
 
->
 ```javascript
-angular.module('MyAwesomeModule', [...other dependencies..., 'ngRetina']);
+angular.module('MyModule', [...other dependencies..., 'ngRetina']);
 ```
 
-+ in the body of your HTML, access static referenced images using:
+now, in the body of any HTML code, access static referenced images using:
 
->
 ```html
 <img ng-src="/path/to/image.png" width="100" height="100">
 ```
 
-+ or reference the image using a markup:
+or reference the image using Angulars markup:
 
->
 ```html
-<img ng-src="{{image_url}}" width="100" height="100">
+<img ng-src="{{ image_url }}" width="100" height="100">
 ```
+
+Note that when using this module, adding the element attributes ```width="..."```
+and/or ```height="..."``` becomes mandatory, as the displayed image
+otherwise gets scaled to its double size.
 
 Just use it in your HTML-code as you would use the common AngularJS directive
 [ngSrc](http://docs.angularjs.org/api/ng.directive:ngSrc):
 
 ## On the server
+
 Applications supporting Retina displays should include two separate files for
 each image resource. One file provides a standard-resolution version of a given
 image, and the second provides a high-resolution version of the same image.
@@ -64,10 +71,6 @@ is interpreted, such that the image in high-resolution is referenced.
 
 This module can also be used to reference static image urls, to load the
 high resolution version on Retina displays.
-
-Note that when using this module, adding the element attributes ```width="..."```
-and/or ```height="..."``` becomes mandatory, as the displayed image
-otherwise gets scaled to its double size.
 
 ## Release History
 + 0.1.0 - initial revision
