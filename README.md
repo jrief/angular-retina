@@ -80,3 +80,6 @@ high resolution version on Retina displays.
 ## License
 Copyright (c) 2013 Jacob Rief  
 Licensed under the MIT license.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jrief/angular-retina/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
