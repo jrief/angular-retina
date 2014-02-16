@@ -58,9 +58,8 @@ Just use it in your HTML-code as you would use the common AngularJS directive
 
 ## Alternative infix
 When this library was written, Apple Inc. recommended to use ```@2x``` as infix, for images
-optimized for Retina displays. Then in 2013, they changed their mind, and now [suggest to use
-the infix](https://developer.apple.com/library/safari/documentation/NetworkingInternet/Conceptual/SafariImageDeliveryBestPractices/ServingImagestoRetinaDisplays/ServingImagestoRetinaDisplays.html)
-```_2x```.
+optimized for Retina displays. Then in 2013, they changed their mind, and now 
+[suggest to use the infix](https://developer.apple.com/library/safari/documentation/NetworkingInternet/Conceptual/SafariImageDeliveryBestPractices/ServingImagestoRetinaDisplays/ServingImagestoRetinaDisplays.html) ```_2x```.
 
 Since Apple's former recommendation, the proposed infix has been hard coded into some server-side
 libraries for image generation. Therefore, in version 0.3.0 of *angular-retina*, a setter function
