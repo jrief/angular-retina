@@ -4,7 +4,7 @@ describe('test module angular-retina', function() {
   var $window;
 
   describe('on high resolution displays', function() {
-    var $httpBackend, scope;
+    var $httpBackend, scope, retinaProvider;
 
     beforeEach(function() {
       module(function($provide) {
@@ -24,6 +24,10 @@ describe('test module angular-retina', function() {
       });
       module('ngRetina');
     });
+
+    beforeEach(module(function(ngRetinaProvider) {
+      retinaProvider = ngRetinaProvider;
+    }));
 
     beforeEach(inject(function($injector, $rootScope) {
       scope = $rootScope.$new();
@@ -79,6 +83,25 @@ describe('test module angular-retina', function() {
           scope.$digest();
           expect(element.attr('src')).toBe('/image@2x.png');
         });
+      });
+    });
+
+    describe('with alternative infix', function() {
+      beforeEach(function() {
+          retinaProvider.setInfix('_2x');
+      });
+
+      it('should set src tag with an alternative highres image', inject(function($compile) {
+        var element = angular.element('<input ng-src="/image.png">');
+        $httpBackend.when('HEAD', '/image_2x.png').respond(200);
+        $compile(element)(scope);
+        scope.$digest();
+        $httpBackend.flush();
+        expect(element.attr('src')).toBe('/image_2x.png');
+      }));
+
+      afterEach(function() {
+        retinaProvider.setInfix('@2x');
       });
     });
 
