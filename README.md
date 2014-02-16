@@ -25,16 +25,16 @@ or with `npm`:
 Into your HTML code include the required files:
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 <script src="/bower_components/angular-retina/dist/angular-retina.min.js"></script>
 ```
 
-Please note, that *angular-retina* requires ```angularjs-1.1.3``` or later.
+Please note, that *angular-retina* requires ```angularjs-1.2.1``` or later.
 
 and in your main JavaScript file:
 
 ```javascript
-angular.module('MyModule', [...other dependencies..., 'ngRetina']);
+var my_app = angular.module('MyApp', [...other dependencies..., 'ngRetina']);
 ```
 
 now, in the body of any HTML code, access static referenced images using:
@@ -56,6 +56,23 @@ otherwise gets scaled to its double size.
 Just use it in your HTML-code as you would use the common AngularJS directive
 [ngSrc](http://docs.angularjs.org/api/ng.directive:ngSrc):
 
+## Alternative infix
+When this library was written, Apple Inc. recommended to use ```@2x``` as infix, for images
+optimized for Retina displays. Then in 2013, they changed their mind, and now [suggest to use
+the infix](https://developer.apple.com/library/safari/documentation/NetworkingInternet/Conceptual/SafariImageDeliveryBestPractices/ServingImagestoRetinaDisplays/ServingImagestoRetinaDisplays.html)
+```_2x```.
+
+Since Apple's former recommendation, the proposed infix has been hard coded into some server-side
+libraries for image generation. Therefore, in version 0.3.0 of *angular-retina*, a setter function
+has been added, which shall be used to set the infix to the newly proposed ```_2x```, but of course
+only, if the server-side supports it:
+
+```javascript
+my_app.config(function(ngRetinaProvider) {
+    ngRetinaProvider.setInfix('_2x');
+});
+```
+
 ## On the server
 
 Applications supporting Retina displays should include two separate files for
@@ -73,12 +90,13 @@ This module can also be used to reference static image urls, to load the
 high resolution version on Retina displays.
 
 ## Release History
-+ 0.1.0 - initial revision
-+ 0.1.3 - fixed problems with minified JS code
-+ 0.2.0 - using sessionStorage instead of $cacheFactory to boost performance
++ 0.1.0 - initial revision.
++ 0.1.3 - fixed problems with minified JS code.
++ 0.2.0 - using sessionStorage instead of $cacheFactory to boost performance.
++ 0.3.0 - added ```setInfix``` to configure the used infix for Retina images.
 
 ## License
-Copyright (c) 2013 Jacob Rief  
+Copyright (c) 2014 Jacob Rief
 Licensed under the MIT license.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jrief/angular-retina/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
