@@ -20,12 +20,8 @@ Into the main HTML code, add the required URLs from the CDN or include the files
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-retina/0.3.0/angular-retina.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-retina/0.3.1/angular-retina.min.js"></script>
 ```
-
-```html
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-
 Please note, that *angular-retina* requires ```angularjs-1.2.1``` or later.
 
 In Javascript, initialize the main module for your angular application:
