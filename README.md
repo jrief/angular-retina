@@ -8,12 +8,7 @@ resolution, then load the high resolution version of that image from the server.
 [![Build Status](https://travis-ci.org/jrief/angular-retina.png)](https://travis-ci.org/jrief/angular-retina)
 
 ## Install
-
-Install with `bower`:
-
-```bower install angular-retina```
-
-or with `npm`:
+If you prefer to host Javascript files locally instead of using a CDN, install them with:
 
 ```npm install angular-retina```
 
@@ -21,23 +16,25 @@ or with `npm`:
 [max]: https://raw.github.com/jrief/angular-retina/master/dist/angular-retina.js
 
 ## Client usage
-
-Into your HTML code include the required files:
+Into the main HTML code, add the required URLs from the CDN or include the files locally:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-<script src="/bower_components/angular-retina/dist/angular-retina.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-retina/0.3.0/angular-retina.min.js"></script>
 ```
+
+```html
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 
 Please note, that *angular-retina* requires ```angularjs-1.2.1``` or later.
 
-and in your main JavaScript file:
+In Javascript, initialize the main module for your angular application:
 
 ```javascript
 var my_app = angular.module('MyApp', [...other dependencies..., 'ngRetina']);
 ```
 
-now, in the body of any HTML code, access static referenced images using:
+In the body of any HTML code, access static referenced images using:
 
 ```html
 <img ng-src="/path/to/image.png" width="100" height="100">
@@ -73,7 +70,6 @@ my_app.config(function(ngRetinaProvider) {
 ```
 
 ## On the server
-
 Applications supporting Retina displays should include two separate files for
 each image resource. One file provides a standard-resolution version of a given
 image, and the second provides a high-resolution version of the same image.
@@ -87,6 +83,14 @@ is interpreted, such that the image in high-resolution is referenced.
 
 This module can also be used to reference static image urls, to load the
 high resolution version on Retina displays.
+
+## Same Origin Policy
+In order to verify if the image exists in high resolution, *angular-retina* invokes
+a HEAD request with the URL of the high-res image. For security reasons, Javascript
+may not access files on servers starting with a different domain name. This is known
+as the [Same Origin Policy](http://www.w3.org/Security/wiki/Same_Origin_Policy).
+Therefore you must ensure, that all images accessed through ```ng-src``` are loaded
+from the same domain as the main HTML file.
 
 ## Release History
 + 0.1.0 - initial revision.
