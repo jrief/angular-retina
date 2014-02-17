@@ -62,7 +62,8 @@ module.exports = function(grunt) {
 		karma: {
 			test: {
 				options: {
-					browsers: ['ChromeCanary']
+					browsers: ['ChromeCanary'],
+					singleRun: true
 				}
 			},
 			testall: {

@@ -1,21 +1,29 @@
-/*! angular-retina - v0.2.2 - 2013-12-13
+/*! angular-retina - v0.3.0 - 2014-02-17
 * https://github.com/jrief/angular-retina
-* Copyright (c) 2013 Jacob Rief; Licensed MIT */
+* Copyright (c) 2014 Jacob Rief; Licensed MIT */
 (function (angular, undefined) {
   'use strict';
-  angular.module('ngRetina', []).config([
-    '$provide',
-    function ($provide) {
-      $provide.decorator('ngSrcDirective', [
-        '$delegate',
-        function ($delegate) {
-          $delegate[0].compile = function (element, attrs) {
-          };
-          return $delegate;
-        }
-      ]);
-    }
-  ]).directive('ngSrc', [
+  var infix = '@2x';
+  var ngRetina = angular.module('ngRetina', []).config([
+      '$provide',
+      function ($provide) {
+        $provide.decorator('ngSrcDirective', [
+          '$delegate',
+          function ($delegate) {
+            $delegate[0].compile = function (element, attrs) {
+            };
+            return $delegate;
+          }
+        ]);
+      }
+    ]);
+  ngRetina.provider('ngRetina', function () {
+    this.setInfix = function (value) {
+      infix = value;
+    };
+    this.$get = angular.noop;
+  });
+  ngRetina.directive('ngSrc', [
     '$window',
     '$http',
     function ($window, $http) {
@@ -30,7 +38,7 @@
         var parts = url.split('.');
         if (parts.length < 2)
           return url;
-        parts[parts.length - 2] += '@2x';
+        parts[parts.length - 2] += infix;
         return parts.join('.');
       }
       return function (scope, element, attrs) {
