@@ -85,17 +85,21 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// Load devDependencies from package.json
-	require('load-grunt-tasks')(grunt);
+	// These plugins provide necessary tasks.
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-ngmin');
+	grunt.loadNpmTasks('grunt-karma');
 
 	// Default task.
 	grunt.registerTask('default', ['test']);
 
 	// Test tasks.
 	grunt.registerTask('test', ['jshint', 'karma:test']);
-	grunt.registerTask('testall', ['karma:testall']);
 	grunt.registerTask('travis-ci', ['jshint', 'karma:travis-ci']);
 
 	// Build task.
-	grunt.registerTask('build', ['test', 'ngmin', 'concat', 'uglify']);
+	grunt.registerTask('build', ['ngmin', 'concat', 'uglify']);
 };
+

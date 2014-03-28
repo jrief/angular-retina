@@ -1,6 +1,9 @@
-/*! angular-retina - v0.3.0 - 2014-02-17
+/*! angular-retina - v0.3.1 - 2014-03-28
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2014 Jacob Rief; Licensed MIT */
+// Add support for Retina displays when using element attribute "ng-src".
+// This module overrides the built-in directive "ng-src" with one which
+// distinguishes between standard or high-resolution (Retina) displays.
 (function (angular, undefined) {
   'use strict';
   var infix = '@2x';

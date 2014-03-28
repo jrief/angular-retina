@@ -12,8 +12,8 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'test/lib/angular/angular.js',
-			'test/lib/angular/angular-mocks.js',
+			'http://code.angularjs.org/1.2.15/angular.js',
+			'http://code.angularjs.org/1.2.15/angular-mocks.js',
 			'lib/*.js',
 			'test/unit/*.js'
 		],
@@ -56,3 +56,4 @@ module.exports = function(config) {
 		singleRun: false
 	});
 };
+
