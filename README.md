@@ -20,15 +20,11 @@ Into the main HTML code, add the required URLs from the CDN or include the files
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-retina/0.3.0/angular-retina.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-retina/0.3.1/angular-retina.min.js"></script>
 ```
-
-```html
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-
 Please note, that *angular-retina* requires ```angularjs-1.2.1``` or later.
 
-In Javascript, initialize the main module for your angular application:
+In Javascript, initialize the main module for your AngularJS application:
 
 ```javascript
 var my_app = angular.module('MyApp', [...other dependencies..., 'ngRetina']);
@@ -40,7 +36,7 @@ In the body of any HTML code, access static referenced images using:
 <img ng-src="/path/to/image.png" width="100" height="100">
 ```
 
-or reference the image using Angulars markup:
+or reference the image using AngularJS's markup:
 
 ```html
 <img ng-src="{{ image_url }}" width="100" height="100">
@@ -55,13 +51,13 @@ Just use it in your HTML-code as you would use the common AngularJS directive
 
 ## Alternative infix
 When this library was written, Apple Inc. recommended to use ```@2x``` as infix, for images
-optimized for Retina displays. Then in 2013, they changed their mind, and now 
+optimized for Retina displays. In late 2013, they changed their mind, and now 
 [suggest to use the infix](https://developer.apple.com/library/safari/documentation/NetworkingInternet/Conceptual/SafariImageDeliveryBestPractices/ServingImagestoRetinaDisplays/ServingImagestoRetinaDisplays.html) ```_2x```.
 
 Since Apple's former recommendation, the proposed infix has been hard coded into some server-side
-libraries for image generation. Therefore, in version 0.3.0 of *angular-retina*, a setter function
-has been added, which shall be used to set the infix to the newly proposed ```_2x```, but of course
-only, if the server-side supports it:
+libraries for image generation. Therefore, in version 0.3.0 of *angular-retina*, a configuration function
+has been added, which shall be used to set the infix to the newly proposed ```_2x``` – but of course
+only, if the server-side also supports it!
 
 ```javascript
 my_app.config(function(ngRetinaProvider) {
@@ -86,10 +82,12 @@ high resolution version on Retina displays.
 
 ## Same Origin Policy
 In order to verify if the image exists in high resolution, *angular-retina* invokes
-a HEAD request with the URL of the high-res image. For security reasons, Javascript
-may not access files on servers starting with a different domain name. This is known
-as the [Same Origin Policy](http://www.w3.org/Security/wiki/Same_Origin_Policy).
-Therefore you must ensure, that all images accessed through ```ng-src``` are loaded
+a HEAD request with the URL of the high-res image.
+
+For security reasons, Javascript may not access files on servers starting with a
+different domain name. This is known as the
+[Same Origin Policy](http://www.w3.org/Security/wiki/Same_Origin_Policy).
+Therefore please ensure, that all images accessed through ```ng-src``` can be loaded
 from the same domain as the main HTML file.
 
 ## Release History
