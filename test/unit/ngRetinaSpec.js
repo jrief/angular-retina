@@ -88,17 +88,17 @@ describe('test module angular-retina', function() {
 
     describe('for "ng-src" tags containing base64 encode URLs', function() {
       it('should not invoke any HEAD request', inject(function($compile) {
-        var b64img = 'data:image/png;base64,' +
+        var base64img = 'data:image/png;base64,' +
           'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGP' +
           'C/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9YGARc5KB0XV+IA' +
           'AAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAF1J' +
           'REFUGNO9zL0NglAAxPEfdLTs4BZM4DIO4C7OwQg2JoQ9LE1exdlYvBBeZ7jq' +
           'ch9//q1uH4TLzw4d6+ErXMMcXuHWxId3KOETnnXXV6MJpcq2MLaI97CER3N0' +
           'vr4MkhoXe0rZigAAAABJRU5ErkJggg==';
-        var element = angular.element('<img ng-src="' + b64img + '">');
+        var element = angular.element('<img ng-src="' + base64img + '">');
         $compile(element)(scope);
         scope.$digest();
-        expect(element.attr('src')).toBe(b64img);
+        expect(element.attr('src')).toBe(base64img);
       }));
     });
 
