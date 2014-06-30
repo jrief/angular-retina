@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.1 - 2014-04-01
+/*! angular-retina - v0.3.1 - 2014-06-30
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2014 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -6,7 +6,7 @@
 // distinguishes between standard or high-resolution (Retina) displays.
 (function (angular, undefined) {
   'use strict';
-  var infix = '@2x';
+  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/i;
   var ngRetina = angular.module('ngRetina', []).config([
       '$provide',
       function ($provide) {
@@ -68,7 +68,7 @@
         attrs.$observe('ngSrc', function (value) {
           if (!value)
             return;
-          if (isRetina && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG') {
+          if (isRetina && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !value.match(data_url_regex)) {
             set2xVariant(value);
           } else {
             setImgSrc(value);
