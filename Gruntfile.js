@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 		ngmin: {
 			dist: {
 				src: ['lib/<%= pkg.name %>.js'],
-				dest: 'dist/<%= pkg.name %>.js'
+				dest: 'build/<%= pkg.name %>.js'
 			}
 		},
 		concat: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: '<%= ngmin.dist.dest %>',
-				dest: 'dist/<%= pkg.name %>.js'
+				dest: 'build/<%= pkg.name %>.js'
 			}
 		},
 		uglify: {
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: '<%= concat.dist.dest %>',
-				dest: 'dist/<%= pkg.name %>.min.js'
+				dest: 'build/<%= pkg.name %>.min.js'
 			}
 		},
 		jshint: {
