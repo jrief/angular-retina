@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.1 - 2014-03-28
+/*! angular-retina - v0.3.1 - 2014-04-01
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2014 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -68,7 +68,7 @@
         attrs.$observe('ngSrc', function (value) {
           if (!value)
             return;
-          if (isRetina && typeof $window.sessionStorage === 'object') {
+          if (isRetina && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG') {
             set2xVariant(value);
           } else {
             setImgSrc(value);
