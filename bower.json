@@ -1,0 +1,21 @@
+{
+  "name": "angular-retina",
+  "description": "Replace AngularJS directive 'ng-src' by a version which supports Retina displays",
+  "version": "0.3.1",
+  "main": "build/angular-retina.js",
+  "author": {
+		"name": "Jacob Rief",
+		"email": "jacob.rief@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/jrief/angular-retina.git"
+	},
+  "dependencies": {
+    "angular": "~1.2.x"
+  }
+  "ignore": [
+    "lib",
+    "test"
+  ]
+}
