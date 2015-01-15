@@ -95,10 +95,9 @@ from the same domain as the main HTML file.
 + 0.1.3 - fixed problems with minified JS code.
 + 0.2.0 - using sessionStorage instead of $cacheFactory to boost performance.
 + 0.3.0 - added ```setInfix``` to configure the used infix for Retina images.
++ 0.3.1 - added a noretina attribute support to conditionally disable the "retinification" for an element.
 
 ## License
-Copyright (c) 2014 Jacob Rief
-Licensed under the MIT license.
+&copy; 2015 Jacob Rief
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jrief/angular-retina/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+MIT licensed.
