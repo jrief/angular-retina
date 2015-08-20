@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>angular-retina example</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.js"></script>
+
+        <script src="../lib/angular-retina.js"></script>
+        <script src="angular-retina-example-app.js"></script>
+    </head>
+
+    <body ng-app="angularRetinaExampleApp" ng-controller="AngularRetinaExampleController as vm">
+        <div>
+            <label>Image with static "ng-src"</label>
+            <br>
+            <img alt="Angular JS" ng-src="images/angular.png" width="190" height="200" />
+        </div>
+
+        <div>
+            <label>Image with marked up "ng-src"</label>
+            <br>
+            <img alt="Angular JS" ng-src="{{ vm.image  }}" width="190" height="200" />
+        </div>
+
+        <div>
+            <label>Image with no HDPI alternative available</label>
+            <br>
+            <img alt="Angular JS" ng-src="images/angular-no-hdpi.png" width="190" height="200" />
+        </div>
+    </body>
+</html>
