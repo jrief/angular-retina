@@ -26,21 +26,27 @@
     }
   ],
   "scripts": {
-      "example": "node node_modules/.bin/http-server"
+    "example": "node node_modules/.bin/http-server",
+    "jshint": "node_modules/.bin/grunt jshint",
+    "test": "npm run jshint && node_modules/.bin/karma start --single-run --browsers PhantomJS",
+    "test-min": "node_modules/.bin/karma start --single-run --browsers PhantomJS --min",
+    "test-all": "npm run jshint && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox,Chrome'",
+    "test-travis": "npm run jshint && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox' && npm run test-min && npm run coverage-average",
+    "coverage-average": "node_modules/.bin/coverage-average coverage/text-summary.txt --limit 90",
+    "precommit": "npm test && npm run coverage-average"
   },
   "dependencies": {},
   "devDependencies": {
+    "coverage-average": "^1.0.3",
     "grunt": "latest",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-karma": "latest",
     "grunt-ngmin": "latest",
     "http-server": "^0.8.0",
-    "karma": "latest",
-    "karma-chrome-launcher": "latest",
-    "karma-firefox-launcher": "latest",
-    "karma-jasmine": "latest"
+    "husky": "^0.9.3",
+    "jscs": "^2.1.0"
   },
   "keywords": [
     "angularjs",
