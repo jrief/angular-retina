@@ -1,12 +1,12 @@
-/*! angular-retina - v0.3.1 - 2014-06-30
+/*! angular-retina - v0.3.1 - 2015-08-24
 * https://github.com/jrief/angular-retina
-* Copyright (c) 2014 Jacob Rief; Licensed MIT */
+* Copyright (c) 2015 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
 // This module overrides the built-in directive "ng-src" with one which
 // distinguishes between standard or high-resolution (Retina) displays.
 (function (angular, undefined) {
   'use strict';
-  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/i;
+  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
   var ngRetina = angular.module('ngRetina', []).config([
       '$provide',
       function ($provide) {
@@ -51,7 +51,11 @@
             element.prop('src', img_url);
         }
         function set2xVariant(img_url) {
-          var img_url_2x = $window.sessionStorage.getItem(img_url);
+          var img_url_2x = null;
+          if (angular.isUndefined(attrs.at2x))
+            img_url_2x = $window.sessionStorage.getItem(img_url);
+          else
+            img_url_2x = attrs.at2x;
           if (!img_url_2x) {
             img_url_2x = getHighResolutionURL(img_url);
             $http.head(img_url_2x).success(function (data, status) {
@@ -68,7 +72,7 @@
         attrs.$observe('ngSrc', function (value) {
           if (!value)
             return;
-          if (isRetina && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !value.match(data_url_regex)) {
+          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !value.match(data_url_regex)) {
             set2xVariant(value);
           } else {
             setImgSrc(value);

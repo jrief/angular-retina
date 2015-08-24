@@ -121,6 +121,16 @@ describe('test module angular-retina', function() {
       });
     });
 
+    describe('with the alternate high-resolution image is provided', function () {
+      it('should set src tag with the alternate highres image', inject(function($compile) {
+        var element = angular.element('<img ng-src="/image.png" data-at2x="/image-with-hash@2x.png">');
+        $httpBackend.when('HEAD', '/image-with-hash@2x.png').respond(200);
+        $compile(element)(scope);
+        scope.$digest();
+        expect(element.attr('src')).toBe('/image-with-hash@2x.png');
+      }));
+    });
+
     describe('if the high resolution image is not available', function() {
       beforeEach(function() {
         $httpBackend.when('HEAD', '/image@2x.png').respond(404);
