@@ -52,7 +52,7 @@ Just use it in your HTML-code as you would use the common AngularJS directive
 
 ## Alternative infix
 When this library was written, Apple Inc. recommended to use ```@2x``` as infix, for images
-optimized for Retina displays. In late 2013, they changed their mind, and now 
+optimized for Retina displays. In late 2013, they changed their mind, and now
 [suggest to use the infix](https://developer.apple.com/library/safari/documentation/NetworkingInternet/Conceptual/SafariImageDeliveryBestPractices/ServingImagestoRetinaDisplays/ServingImagestoRetinaDisplays.html) ```_2x```.
 
 Since Apple's former recommendation, the proposed infix has been hard coded into some server-side
@@ -64,6 +64,20 @@ only, if the server-side also supports it!
 my_app.config(function(ngRetinaProvider) {
     ngRetinaProvider.setInfix('_2x');
 });
+```
+
+## Images with embedded hash
+
+When using a framework that embeds a digest/hash to the asset URL, the problem
+is that a high-resolution verison would have a different hash and would not follow the
+usual pattern that ends with @2x. Instead the hash is added at the end, i.e.
+`/images/image@2x-{hash2}.jpg`, so the automatic detection of image URL would fail.
+
+The solution is to supply the the high-resolution URL image from the outside of the library
+using the `data-at2x` attribute:
+
+```html
+<img src="/images/image.jpg" data-at2x="/images/image@2x.jpg" />
 ```
 
 ## On the server
