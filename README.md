@@ -6,6 +6,7 @@ If the browser runs on a Retina display and the referenced image is available in
 resolution, then load the high resolution version of that image from the server.
 
 [![Build Status](https://travis-ci.org/jrief/angular-retina.png)](https://travis-ci.org/jrief/angular-retina)
+[![Code Climate](https://codeclimate.com/github/jrief/angular-retina/badges/gpa.svg)](https://codeclimate.com/github/jrief/angular-retina)
 
 ## Install
 If you prefer to host Javascript files locally instead of using a CDN, install them with:

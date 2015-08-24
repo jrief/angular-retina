@@ -58,30 +58,6 @@ module.exports = function(grunt) {
 					$: false
 				}
 			}
-		},
-		karma: {
-			test: {
-				options: {
-					browsers: ['ChromeCanary'],
-					singleRun: true
-				}
-			},
-			testall: {
-				options: {
-					browsers: ['Safari', 'Chrome', 'ChromeCanary', 'Firefox', 'Opera'],
-					singleRun: true
-				}
-			},
-			'travis-ci': {
-				options: {
-					browsers: ['Firefox'],
-					singleRun: true
-				}
-			},
-			options: {
-				reporters: ['dots'],
-				configFile: 'test/karma.conf.js'
-			}
 		}
 	});
 
@@ -90,14 +66,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-ngmin');
-	grunt.loadNpmTasks('grunt-karma');
-
-	// Default task.
-	grunt.registerTask('default', ['test']);
-
-	// Test tasks.
-	grunt.registerTask('test', ['jshint', 'karma:test']);
-	grunt.registerTask('travis-ci', ['jshint', 'karma:travis-ci']);
 
 	// Build task.
 	grunt.registerTask('build', ['ngmin', 'concat', 'uglify']);

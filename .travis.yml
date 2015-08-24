@@ -1,13 +1,15 @@
+sudo: false
 language: node_js
 
 node_js:
- - 0.10.26
+    - 0.12
 
 before_script:
- - export DISPLAY=:99.0
- - sh -e /etc/init.d/xvfb start
- - npm install -g grunt-cli
- - npm install
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+    - npm install -g grunt-cli bower
+    - bower install
+    - npm install
 
 script:
- - grunt travis-ci
+    - npm run test-travis
