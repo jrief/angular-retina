@@ -224,7 +224,11 @@ describe('test module angular-retina', function() {
       scope.image_url = '/image.png';
       $compile(element)(scope);
       scope.$digest();
-      expect(element.attr('style')).toBe('opacity: 0; -webkit-transition-property: opacity; -webkit-transition-duration: 0.5s; -webkit-transition-timing-function: ease-out; -webkit-transition-delay: initial; ');
+      var style = element.attr('style');
+      expect(style).toMatch(/opacity: 0/);
+      expect(style).toMatch(/transition/);
+      expect(style).toMatch(/ease-out/);
+      expect(style).toMatch(/0\.5s/);
     });
 
     it('should set opacity to 0 when the image has loaded', function() {
@@ -233,7 +237,7 @@ describe('test module angular-retina', function() {
       $compile(element)(scope);
       scope.$digest();
       angular.element(element).triggerHandler('load');
-      expect(element.attr('style')).toBe('-webkit-transition-property: opacity; -webkit-transition-duration: 0.5s; -webkit-transition-timing-function: ease-out; -webkit-transition-delay: initial; opacity: 1; ');
+      expect(element.attr('style')).toMatch(/opacity: 1/);
     })
   });
 
