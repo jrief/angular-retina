@@ -66,6 +66,15 @@ my_app.config(function(ngRetinaProvider) {
 });
 ```
 
+## Hide images until loaded, avoiding "broken image" display
+To hide (`opacity: 0`) images until the library has determined what resolution to use, set the `src` and the image has finished downloading, use the following config:
+
+```javascript
+my_app.config(function(ngRetinaProvider) {
+    ngRetinaProvider.setFadeInWhenLoaded(true);
+});
+```
+
 ## Images with embedded hash
 
 When using a framework that embeds a digest/hash to the asset URL, the problem
