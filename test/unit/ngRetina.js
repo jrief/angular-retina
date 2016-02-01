@@ -22,9 +22,9 @@ describe('test module angular-retina', function() {
           };
         });
       });
-      module('ngRetina');
     });
 
+    beforeEach(module('ngRetina'));
     beforeEach(module(function(ngRetinaProvider) {
       retinaProvider = ngRetinaProvider;
     }));
@@ -35,8 +35,12 @@ describe('test module angular-retina', function() {
     }));
 
     afterEach(function() {
-        window.sessionStorage.removeItem("/image.png");
-        window.sessionStorage.removeItem("/picture.png");
+      window.sessionStorage.removeItem('/image.png');
+      window.sessionStorage.removeItem('/image@2x.png');
+      window.sessionStorage.removeItem('/picture.png');
+      window.sessionStorage.removeItem('/picture@2x.png');
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     describe('for static "ng-src" tags', function() {
@@ -104,7 +108,7 @@ describe('test module angular-retina', function() {
 
     describe('with alternative infix', function() {
       beforeEach(function() {
-          retinaProvider.setInfix('_2x');
+        retinaProvider.setInfix('_2x');
       });
 
       it('should set src tag with an alternative highres image', inject(function($compile) {
@@ -196,49 +200,4 @@ describe('test module angular-retina', function() {
       expect(element.attr('src')).toBe('/image.png');
     }));
   });
-
-  describe('when fadeInWhenLoaded is set, image should be invisible until loaded', function() {
-    var scope, retinaProvider, $httpBackend, $compile;
-    beforeEach(module('ngRetina'));
-    beforeEach(module(function(ngRetinaProvider) {
-      retinaProvider = ngRetinaProvider;
-    }));
-
-    beforeEach(inject(function(_$rootScope_, _$httpBackend_, _$compile_) {
-      $httpBackend = _$httpBackend_
-      scope = _$rootScope_.$new();
-      $compile = _$compile_;
-      $httpBackend.when('HEAD', '/image@2x.png').respond(200);
-      $httpBackend.when('GET', '/image@2x.png').respond(200);
-      retinaProvider.setFadeInWhenLoaded(true);
-    }));
-
-    afterEach(function() {
-        window.sessionStorage.removeItem("/image.png");
-        window.sessionStorage.removeItem("/picture.png");
-        retinaProvider.setFadeInWhenLoaded(false);
-      });
-
-    it('should set style with transition and opacity', function() {
-      var element = angular.element('<img ng-src="{{image_url}}">');
-      scope.image_url = '/image.png';
-      $compile(element)(scope);
-      scope.$digest();
-      var style = element.attr('style');
-      expect(style).toMatch(/opacity: 0/);
-      expect(style).toMatch(/transition/);
-      expect(style).toMatch(/ease-out/);
-      expect(style).toMatch(/0\.5s/);
-    });
-
-    it('should set opacity to 0 when the image has loaded', function() {
-      var element = angular.element('<img ng-src="{{image_url}}">');
-      scope.image_url = '/image.png';
-      $compile(element)(scope);
-      scope.$digest();
-      angular.element(element).triggerHandler('load');
-      expect(element.attr('style')).toMatch(/opacity: 1/);
-    })
-  });
-
 });
