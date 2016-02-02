@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.3 - 2016-01-25
+/*! angular-retina - v0.3.3 - 2016-02-01
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -6,7 +6,7 @@
 // distinguishes between standard or high-resolution (Retina) displays.
 (function (angular, undefined) {
   'use strict';
-  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/, fadeInWhenLoaded = false;
+  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/, fadeInWhenLoaded = false, loadErrorHandler = angular.noop;
   var ngRetina = angular.module('ngRetina', []).config([
       '$provide',
       function ($provide) {
@@ -21,11 +21,14 @@
       }
     ]);
   ngRetina.provider('ngRetina', function () {
-    this.setInfix = function (value) {
+    this.setInfix = function setInfix(value) {
       infix = value;
     };
-    this.setFadeInWhenLoaded = function (value) {
+    this.setFadeInWhenLoaded = function setFadeInWhenLoaded(value) {
       fadeInWhenLoaded = value;
+    };
+    this.setLoadErrorHandler = function setLoadErrorHandler(handler) {
+      loadErrorHandler = handler;
     };
     this.$get = angular.noop;
   });
@@ -58,14 +61,15 @@
           });
         }
         function setImgSrc(img_url) {
-          attrs.$set('src', img_url);
-          if (msie)
-            element.prop('src', img_url);
+          element.on('error', loadErrorHandler);
           if (fadeInWhenLoaded) {
             element.on('load', function () {
               element.css('opacity', 1);
             });
           }
+          attrs.$set('src', img_url);
+          if (msie)
+            element.prop('src', img_url);
         }
         function set2xVariant(img_url) {
           var img_url_2x = null;
