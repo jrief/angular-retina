@@ -29,6 +29,7 @@
     "example": "node node_modules/.bin/http-server",
     "jshint": "node_modules/.bin/grunt jshint",
     "test": "npm run jshint && node_modules/.bin/karma start --single-run --browsers PhantomJS",
+    "test-watch": "node_modules/.bin/karma start karma.conf.js --auto-watch",
     "test-min": "node_modules/.bin/karma start --single-run --browsers PhantomJS --reporters 'coverage,dots' --min",
     "test-all": "npm run jshint && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox,Chrome'",
     "test-travis": "npm run jshint && npm run test-min && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox' --reporters 'coverage,dots' && npm run coverage-average",
