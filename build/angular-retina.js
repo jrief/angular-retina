@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.3 - 2016-02-01
+/*! angular-retina - v0.3.4 - 2016-02-02
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
