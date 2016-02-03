@@ -1,7 +1,7 @@
 {
   "name": "angular-retina",
   "description": "Replace AngularJS directive 'ng-src' by a version which supports Retina displays",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "files": [
     "dist/angular-retina.js",
     "dist/angular-retina.min.js"
@@ -35,8 +35,7 @@
     "test-travis": "npm run jshint && npm run test-min && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox' --reporters 'coverage,dots' && npm run coverage-average",
     "coverage-average": "node_modules/.bin/coverage-average coverage/text-summary.txt --limit 90",
     "precommit": "npm run test-min && npm test && npm run coverage-average",
-    "build": "grunt build",
-    "publish": "npm run test && npm run jshint && npm run build && git commit -m 'Built latest version' build/ && npm version patch && npm publish && git push && git push --tags"
+    "build": "grunt build"
   },
   "dependencies": {},
   "devDependencies": {
