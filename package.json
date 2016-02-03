@@ -35,7 +35,8 @@
     "test-travis": "npm run jshint && npm run test-min && node_modules/.bin/karma start --single-run --browsers 'PhantomJS,Firefox' --reporters 'coverage,dots' && npm run coverage-average",
     "coverage-average": "node_modules/.bin/coverage-average coverage/text-summary.txt --limit 90",
     "precommit": "npm run test-min && npm test && npm run coverage-average",
-    "build": "grunt build"
+    "build": "grunt build",
+    "publish": "npm run test && npm run jshint && npm run build && npm publish && git push && git push --tags"
   },
   "dependencies": {},
   "devDependencies": {
