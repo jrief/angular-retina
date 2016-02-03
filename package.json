@@ -36,7 +36,7 @@
     "coverage-average": "node_modules/.bin/coverage-average coverage/text-summary.txt --limit 90",
     "precommit": "npm run test-min && npm test && npm run coverage-average",
     "build": "grunt build",
-    "publish": "npm run test && npm run jshint && npm run build && npm publish && git push && git push --tags"
+    "publish": "npm run test && npm run jshint && npm run build && git commit -m 'Built latest version' build/ && npm version patch && npm publish && git push && git push --tags"
   },
   "dependencies": {},
   "devDependencies": {
