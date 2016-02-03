@@ -17,8 +17,7 @@ describe('when fadeInWhenLoaded is set, image should be invisible until loaded',
   }));
 
   afterEach(function() {
-    window.sessionStorage.removeItem("/image.png");
-    window.sessionStorage.removeItem("/picture.png");
+    window.sessionStorage.clear();
     retinaProvider.setFadeInWhenLoaded(false);
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
@@ -44,4 +43,23 @@ describe('when fadeInWhenLoaded is set, image should be invisible until loaded',
     angular.element(element).triggerHandler('load');
     expect(element.attr('style')).toMatch(/opacity: 1/);
   });
+
+  it('should not modify opacity if the ngSrc attribute is modified to a value that matches the previous src', function() {
+    var element = angular.element('<img ng-src="{{model.image_url}}">');
+    scope.model = {
+      image_url: '/image.png'
+    }
+    $compile(element)(scope);
+    scope.$digest();
+    element.triggerHandler('load');
+    expect(element.attr('style')).toMatch(/opacity: 1/);
+    scope.model = null;
+    scope.$apply();
+    expect(element.attr('style')).toMatch(/opacity: 1/);
+    scope.model = {
+      image_url: '/image.png'
+    }
+    scope.$apply();
+    expect(element.attr('style')).toMatch(/opacity: 1/);
+  })
 });
