@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.4 - 2016-02-02
+/*! angular-retina - v0.3.5 - 2016-02-03
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -39,64 +39,68 @@
       var msie = parseInt((/msie (\d+)/.exec($window.navigator.userAgent.toLowerCase()) || [])[1], 10);
       var isRetina = function () {
           var mediaQuery = '(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), ' + '(-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)';
-          if ($window.devicePixelRatio > 1)
+          if ($window.devicePixelRatio > 1) {
             return true;
+          }
           return $window.matchMedia && $window.matchMedia(mediaQuery).matches;
         }();
       function getHighResolutionURL(url) {
         var parts = url.split('.');
-        if (parts.length < 2)
+        if (parts.length < 2) {
           return url;
+        }
         parts[parts.length - 2] += infix;
         return parts.join('.');
       }
       return function (scope, element, attrs) {
-        if (fadeInWhenLoaded) {
-          element.css({
-            opacity: 0,
-            '-o-transition': 'opacity 0.5s ease-out',
-            '-moz-transition': 'opacity 0.5s ease-out',
-            '-webkit-transition': 'opacity 0.5s ease-out',
-            'transition': 'opacity 0.5s ease-out'
-          });
-        }
-        function setImgSrc(img_url) {
+        function setImgSrc(imageUrl) {
           element.on('error', loadErrorHandler);
-          if (fadeInWhenLoaded) {
+          attrs.$set('src', imageUrl);
+          if (msie) {
+            element.prop('src', imageUrl);
+          }
+        }
+        function set2xVariant(imageUrl) {
+          var imageUrl2x;
+          if (angular.isUndefined(attrs.at2x)) {
+            imageUrl2x = $window.sessionStorage.getItem(imageUrl);
+          } else {
+            imageUrl2x = attrs.at2x;
+          }
+          if (!imageUrl2x) {
+            imageUrl2x = getHighResolutionURL(imageUrl);
+            $http.head(imageUrl2x).success(function (data, status) {
+              setImgSrc(imageUrl2x);
+              $window.sessionStorage.setItem(imageUrl, imageUrl2x);
+            }).error(function (data, status, headers, config) {
+              setImgSrc(imageUrl);
+              $window.sessionStorage.setItem(imageUrl, imageUrl);
+            });
+          } else {
+            setImgSrc(imageUrl2x);
+          }
+        }
+        attrs.$observe('ngSrc', function (imageUrl, oldValue) {
+          if (!imageUrl) {
+            return;
+          }
+          if (fadeInWhenLoaded && !$window.sessionStorage.getItem('fadedIn-' + imageUrl)) {
+            element.css({
+              opacity: 0,
+              '-o-transition': 'opacity 0.5s ease-out',
+              '-moz-transition': 'opacity 0.5s ease-out',
+              '-webkit-transition': 'opacity 0.5s ease-out',
+              'transition': 'opacity 0.5s ease-out'
+            });
             element.on('load', function () {
+              $window.sessionStorage.setItem('fadedIn-' + imageUrl, true);
               element.css('opacity', 1);
             });
           }
-          attrs.$set('src', img_url);
-          if (msie)
-            element.prop('src', img_url);
-        }
-        function set2xVariant(img_url) {
-          var img_url_2x = null;
-          if (angular.isUndefined(attrs.at2x))
-            img_url_2x = $window.sessionStorage.getItem(img_url);
-          else
-            img_url_2x = attrs.at2x;
-          if (!img_url_2x) {
-            img_url_2x = getHighResolutionURL(img_url);
-            $http.head(img_url_2x).success(function (data, status) {
-              setImgSrc(img_url_2x);
-              $window.sessionStorage.setItem(img_url, img_url_2x);
-            }).error(function (data, status, headers, config) {
-              setImgSrc(img_url);
-              $window.sessionStorage.setItem(img_url, img_url);
-            });
+          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !imageUrl.match(data_url_regex)) {
+            set2xVariant(imageUrl);
           } else {
-            setImgSrc(img_url_2x);
-          }
-        }
-        attrs.$observe('ngSrc', function (value) {
-          if (!value)
-            return;
-          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !value.match(data_url_regex)) {
-            set2xVariant(value);
-          } else {
-            setImgSrc(value);
+            setImgSrc(imageUrl);
           }
         });
       };
