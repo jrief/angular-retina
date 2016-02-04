@@ -1,1 +1,2 @@
-build/*
+exclude_paths:
+ - build/**/*
