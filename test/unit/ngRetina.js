@@ -58,8 +58,8 @@ describe('test module angular-retina', function() {
       var element;
 
       beforeEach(inject(function($compile) {
-        element = angular.element('<img ng-src="{{image_url}}">');
-        scope.image_url = '/image.png';
+        element = angular.element('<img ng-src="{{imageUrl}}">');
+        scope.imageUrl = '/image.png';
         $httpBackend.when('HEAD', '/image@2x.png').respond(200);
         $compile(element)(scope);
         scope.$digest();
@@ -70,10 +70,10 @@ describe('test module angular-retina', function() {
         expect(element.attr('src')).toBe('/image@2x.png');
       });
 
-      describe('should observe scope.image_url', function() {
+      describe('should observe scope.imageUrl', function() {
         beforeEach(function() {
           $httpBackend.when('HEAD', '/picture@2x.png').respond(200);
-          scope.image_url = '/picture.png';
+          scope.imageUrl = '/picture.png';
           scope.$digest();
           $httpBackend.flush();
         });
@@ -83,10 +83,40 @@ describe('test module angular-retina', function() {
         });
 
         it('and check if the client side cache is working', function() {
-          scope.image_url = '/image.png';
+          scope.imageUrl = '/image.png';
           scope.$digest();
           expect(element.attr('src')).toBe('/image@2x.png');
         });
+
+        it('and should modify jpg', function() {
+          $httpBackend.when('HEAD', '/image@2x.png').respond(200);
+          $httpBackend.when('HEAD', '/image@2x.jpg').respond(200);
+          $httpBackend.when('HEAD', '/image@2x.jpeg').respond(200);
+          $httpBackend.when('HEAD', '/image@2x.gif').respond(200);
+          $httpBackend.when('HEAD', '/image@2x.svg').respond(200);
+
+          scope.imageUrl = '/image.png';
+          scope.$digest();
+          expect(element.attr('src')).toBe('/image@2x.png');
+
+          scope.imageUrl = '/image.jpg';
+          scope.$digest();
+          $httpBackend.flush();
+          expect(element.attr('src')).toBe('/image@2x.jpg');
+
+          scope.imageUrl = '/image.jpeg';
+          scope.$digest();
+          $httpBackend.flush();
+          expect(element.attr('src')).toBe('/image@2x.jpeg');
+
+          scope.imageUrl = '/image.gif';
+          scope.$digest();
+          expect(element.attr('src')).toBe('/image.gif');
+
+          scope.imageUrl = '/image.svg';
+          scope.$digest();
+          expect(element.attr('src')).toBe('/image.svg');
+        })
       });
     });
 
@@ -149,8 +179,8 @@ describe('test module angular-retina', function() {
       }));
 
       it('should copy content from scope object to "src" tag', inject(function($compile) {
-        var element = angular.element('<img ng-src="{{image_url}}">');
-        scope.image_url = '/image.png';
+        var element = angular.element('<img ng-src="{{imageUrl}}">');
+        scope.imageUrl = '/image.png';
         $compile(element)(scope);
         scope.$digest();
         $httpBackend.flush();
@@ -193,8 +223,8 @@ describe('test module angular-retina', function() {
     }));
 
     it('should copy content from scope object to "src" tag', inject(function($compile) {
-      var element = angular.element('<img ng-src="{{image_url}}">');
-      scope.image_url = '/image.png';
+      var element = angular.element('<img ng-src="{{imageUrl}}">');
+      scope.imageUrl = '/image.png';
       $compile(element)(scope);
       scope.$digest();
       expect(element.attr('src')).toBe('/image.png');
