@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.7 - 2016-02-03
+/*! angular-retina - v0.3.8 - 2016-02-09
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -6,7 +6,7 @@
 // distinguishes between standard or high-resolution (Retina) displays.
 (function (angular, undefined) {
   'use strict';
-  var infix = '@2x', data_url_regex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/, fadeInWhenLoaded = false, loadErrorHandler = angular.noop;
+  var infix = '@2x', dataUrlRegex = /^data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/, allowedImageTypesRegex = /(png|jp[e]?g)$/, fadeInWhenLoaded = false, loadErrorHandler = angular.noop;
   var ngRetina = angular.module('ngRetina', []).config([
       '$provide',
       function ($provide) {
@@ -97,7 +97,7 @@
               element.css('opacity', 1);
             });
           }
-          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && !imageUrl.match(data_url_regex)) {
+          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && imageUrl.match(allowedImageTypesRegex) && !imageUrl.match(dataUrlRegex)) {
             set2xVariant(imageUrl);
           } else {
             setImgSrc(imageUrl);
