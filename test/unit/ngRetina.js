@@ -52,6 +52,13 @@ describe('test module angular-retina', function() {
         $httpBackend.flush();
         expect(element.attr('src')).toBe('/image@2x.png');
       }));
+
+      it('should set src directly if ng-src is a data-uri', inject(function($compile) {
+        var element = angular.element('<img ng-src="data:image/png;base64,iVBOD">');
+        $compile(element)(scope);
+        scope.$apply();
+        expect(element.attr('src')).toBe('data:image/png;base64,iVBOD');
+      }));
     });
 
     describe('for marked up "ng-src" tags', function() {
