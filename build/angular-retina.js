@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.8 - 2016-02-09
+/*! angular-retina - v0.3.9 - 2016-03-13
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -20,6 +20,10 @@
         ]);
       }
     ]);
+  // From https://gist.github.com/bgrins/6194623#gistcomment-1671744
+  function isDataUri(uri) {
+    return new RegExp(/^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+\=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i).test(uri);
+  }
   ngRetina.provider('ngRetina', function () {
     this.setInfix = function setInfix(value) {
       infix = value;
@@ -83,6 +87,9 @@
         attrs.$observe('ngSrc', function (imageUrl, oldValue) {
           if (!imageUrl) {
             return;
+          }
+          if (isDataUri(imageUrl)) {
+            return setImgSrc(imageUrl);
           }
           if (fadeInWhenLoaded && !$window.sessionStorage.getItem('fadedIn-' + imageUrl)) {
             element.css({
