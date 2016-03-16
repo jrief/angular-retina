@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.9 - 2016-03-13
+/*! angular-retina - v0.3.10 - 2016-03-16
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -39,7 +39,8 @@
   ngRetina.directive('ngSrc', [
     '$window',
     '$http',
-    function ($window, $http) {
+    '$log',
+    function ($window, $http, $log) {
       var msie = parseInt((/msie (\d+)/.exec($window.navigator.userAgent.toLowerCase()) || [])[1], 10);
       var isRetina = function () {
           var mediaQuery = '(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), ' + '(-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)';
@@ -64,10 +65,27 @@
             element.prop('src', imageUrl);
           }
         }
+        function getSessionStorageItem(imageUrl) {
+          var item;
+          try {
+            item = $window.sessionStorage.getItem(imageUrl);
+          } catch (e) {
+            $log.warn('sessionStorage not supported');
+            item = imageUrl;
+          }
+          return item;
+        }
+        function setSessionStorageItem(imageUrl, imageUrl2x) {
+          try {
+            $window.sessionStorage.setItem(imageUrl, imageUrl2x);
+          } catch (e) {
+            $log.warn('sessionStorage not supported');
+          }
+        }
         function set2xVariant(imageUrl) {
           var imageUrl2x;
           if (angular.isUndefined(attrs.at2x)) {
-            imageUrl2x = $window.sessionStorage.getItem(imageUrl);
+            imageUrl2x = getSessionStorageItem(imageUrl);
           } else {
             imageUrl2x = attrs.at2x;
           }
@@ -75,10 +93,10 @@
             imageUrl2x = getHighResolutionURL(imageUrl);
             $http.head(imageUrl2x).success(function (data, status) {
               setImgSrc(imageUrl2x);
-              $window.sessionStorage.setItem(imageUrl, imageUrl2x);
+              setSessionStorageItem(imageUrl, imageUrl2x);
             }).error(function (data, status, headers, config) {
               setImgSrc(imageUrl);
-              $window.sessionStorage.setItem(imageUrl, imageUrl);
+              setSessionStorageItem(imageUrl, imageUrl);
             });
           } else {
             setImgSrc(imageUrl2x);
