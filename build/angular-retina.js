@@ -1,4 +1,4 @@
-/*! angular-retina - v0.3.10 - 2016-03-16
+/*! angular-retina - v0.3.12 - 2016-03-23
 * https://github.com/jrief/angular-retina
 * Copyright (c) 2016 Jacob Rief; Licensed MIT */
 // Add support for Retina displays when using element attribute "ng-src".
@@ -109,7 +109,7 @@
           if (isDataUri(imageUrl)) {
             return setImgSrc(imageUrl);
           }
-          if (fadeInWhenLoaded && !$window.sessionStorage.getItem('fadedIn-' + imageUrl)) {
+          if (fadeInWhenLoaded && !getSessionStorageItem('fadedIn-' + imageUrl)) {
             element.css({
               opacity: 0,
               '-o-transition': 'opacity 0.5s ease-out',
@@ -118,11 +118,11 @@
               'transition': 'opacity 0.5s ease-out'
             });
             element.on('load', function () {
-              $window.sessionStorage.setItem('fadedIn-' + imageUrl, true);
+              setSessionStorageItem('fadedIn-' + imageUrl, true);
               element.css('opacity', 1);
             });
           }
-          if (isRetina && angular.isUndefined(attrs.noretina) && typeof $window.sessionStorage === 'object' && element[0].tagName === 'IMG' && imageUrl.match(allowedImageTypesRegex) && !imageUrl.match(dataUrlRegex)) {
+          if (isRetina && angular.isUndefined(attrs.noretina) && element[0].tagName === 'IMG' && imageUrl.match(allowedImageTypesRegex) && !imageUrl.match(dataUrlRegex)) {
             set2xVariant(imageUrl);
           } else {
             setImgSrc(imageUrl);
