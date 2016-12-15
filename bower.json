@@ -12,15 +12,18 @@
     "url": "git://github.com/jrief/angular-retina.git"
   },
   "dependencies": {
-    "angular": ">= 1.2.x"
+    "angular": ">= 1.5"
   },
   "ignore": [
     "lib",
     "test"
   ],
   "devDependencies": {
-    "angular-mocks": ">= 1.2.x",
-    "angular": ">= 1.2.x"
+    "angular-mocks": "1.5",
+    "angular": "1.5"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "angular": "1.5"
+  }
 }
