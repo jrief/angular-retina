@@ -172,6 +172,17 @@ describe('test module angular-retina', function() {
       }));
     });
 
+    describe('with a query in the URL', function() {
+      it('should apply the infix and preserve the query', inject(function($compile) {
+        var element = angular.element('<img ng-src="/image.png?query=foo">');
+        $httpBackend.when('HEAD', '/image@2x.png?query=foo').respond(200);
+        $compile(element)(scope);
+        scope.$digest();
+        $httpBackend.flush();
+        expect(element.attr('src')).toBe('/image@2x.png?query=foo');
+      }));
+    });
+
     describe('if the high resolution image is not available', function() {
       beforeEach(function() {
         $httpBackend.when('HEAD', '/image@2x.png').respond(404);
