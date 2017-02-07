@@ -1,7 +1,7 @@
 {
   "name": "angular-retina",
   "description": "Replace AngularJS directive 'ng-src' by a version which supports Retina displays",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "files": [
     "build/angular-retina.js",
     "build/angular-retina.min.js"
