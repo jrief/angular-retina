@@ -175,7 +175,7 @@ describe('test module angular-retina', function() {
     describe('with a query in the URL', function() {
       it('should apply the infix and preserve the query', inject(function($compile) {
         var element = angular.element('<img ng-src="/image.jpg?query=foo">');
-        $httpBackend.when('HEAD', '/image@2x.jpg?query=foo').respond(200, '{}');
+        $httpBackend.whenGET('/image@2x.jpg?query=foo').respond(200, '{}');
         $compile(element)(scope);
         scope.$digest();
         $httpBackend.flush();
