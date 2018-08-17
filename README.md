@@ -82,7 +82,7 @@ is that a high-resolution verison would have a different hash and would not foll
 usual pattern that ends with @2x. Instead the hash is added at the end, i.e.
 `/images/image@2x-{hash2}.jpg`, so the automatic detection of image URL would fail.
 
-The solution is to supply the the high-resolution URL image from the outside of the library
+The solution is to supply the high-resolution URL image from the outside of the library
 using the `data-at2x` attribute:
 
 ```html
